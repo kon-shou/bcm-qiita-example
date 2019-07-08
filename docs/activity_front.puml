@@ -1,0 +1,13 @@
+@startuml
+"index.vue" --> BookRepository.ts: BookRepository::listBooks()
+note left : asyncData()
+BookRepository.ts --> Laravel: /book/
+Laravel -> BookRepository.ts: Book[]
+BookRepository.ts -> index.vue: Book[]
+
+"index.vue" --> BookRepository.ts: BookRepository::createBook()
+note left : onRegisterClicked()
+BookRepository.ts --> Laravel: /book/create/
+Laravel -> BookRepository.ts: Book
+BookRepository.ts -> index.vue: Book
+@enduml

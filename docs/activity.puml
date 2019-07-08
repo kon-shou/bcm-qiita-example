@@ -1,0 +1,10 @@
+@startuml
+ブラウザ --> Nginx: 初回リクエスト
+Nginx -> ブラウザ: index.html
+ブラウザ --> Nginx: APIリクエスト（本の新規登録）
+Nginx --> "laravel (php-fpm)": APIリクエスト（本の新規登録）
+"laravel (php-fpm)" --> DB: insert book
+"laravel (php-fpm)" -> Nginx: APIレスポンス（登録結果）
+Nginx -> ブラウザ:  APIレスポンス（登録結果）
+
+@enduml

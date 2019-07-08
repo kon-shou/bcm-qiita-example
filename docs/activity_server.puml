@@ -1,0 +1,9 @@
+@startuml
+フロント --> api.php: /book/create
+api.php --> BookController: BookController::create()
+BookController --> BookRepository: BookRepository::create()
+BookRepository --> DB: Book::query->save()
+DB -> BookRepository: Book
+BookRepository -> BookController: Book
+BookController -> フロント:  Book
+@enduml
