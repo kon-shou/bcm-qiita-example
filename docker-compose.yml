@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:5.7
+    volumes: # host/docker間で共有するデータを指定
+      - "${HOME}/book-management_mysql:/var/lib/mysql"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      TZ: "Asia/Tokyo"
+    ports:
+      - "3306:3306"
+  app:
+    build: . # Dockerfileのディレクトリを指定
+    user: ubuntu
+    volumes: # host/docker間で共有するデータを指定
+      - .:/srv
+      - ./docker/nginx.conf:/etc/nginx/sites-enabled/bcm
+      - ./docker/php-fpm.conf:/etc/php/7.2/fpm/pool.d/bcm.conf
+    command: docker/entrypoint-app.sh # 起動処理を設定
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    ports:
+      - "8000:8000"
+    working_dir: /srv
