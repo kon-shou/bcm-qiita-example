@@ -1,5 +1,7 @@
 import NuxtConfiguration from '@nuxt/config'
 
+require('dotenv').config()
+
 const config: NuxtConfiguration = {
   mode: 'spa',
   srcDir: 'client/',
@@ -30,7 +32,7 @@ const config: NuxtConfiguration = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/dependency'],
   /*
    ** Nuxt.js modules
    */
@@ -39,13 +41,16 @@ const config: NuxtConfiguration = {
     'nuxt-buefy',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/eslint-module'
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/proxy'
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: '/api'
+  },
   /*
    ** Build configuration
    */
@@ -58,6 +63,10 @@ const config: NuxtConfiguration = {
   generate: {
     dir: 'public/dist'
   }
+}
+
+if (process.env.API_BASE_URL) {
+  config.proxy = [process.env.API_BASE_URL]
 }
 
 export default config
