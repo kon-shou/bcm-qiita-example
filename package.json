@@ -43,7 +43,7 @@
     "eslint-plugin-vue": "^5.2.2",
     "jquery": "^3.2",
     "laravel-mix": "^4.0.7",
-    "lodash": "^4.17.5",
+    "lodash": "^4.17.21",
     "nodemon": "^1.18.9",
     "popper.js": "^1.12",
     "prettier": "^1.16.4",
